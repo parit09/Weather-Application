@@ -6,6 +6,7 @@ from timezonefinder import TimezoneFinder
 from datetime import datetime
 import requests
 import pytz
+import os
 
 root=Tk()
 root.title("Weather App")
@@ -26,8 +27,8 @@ def getWeather():
         clock.config(text=current_time)
         name. config(text="CURRENT WEATHER")
 
-        #weather
-        api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&&appid=d16822bea18ea176c1dc2ad35ef75b4a"
+        api_key = os.environ.get("WEATHER_API_KEY")
+        api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
 
         json_data = requests.get(api).json()
         condition = json_data['weather'][0]['main']
